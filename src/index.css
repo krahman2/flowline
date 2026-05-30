@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Accent — calm modern blue */
+  --color-flow-50: #eef4ff;
+  --color-flow-100: #dce7ff;
+  --color-flow-200: #c0d3ff;
+  --color-flow-300: #97b5ff;
+  --color-flow-400: #6c8eff;
+  --color-flow-500: #4f6bf6;
+  --color-flow-600: #3a4fe3;
+  --color-flow-700: #2f3dc4;
+  --color-flow-800: #2a359e;
+  --color-flow-900: #28337d;
+
+  /* Mint — breaks / success */
+  --color-mint-50: #ecfdf5;
+  --color-mint-100: #d1fae5;
+  --color-mint-200: #a7f3d0;
+  --color-mint-400: #34d399;
+  --color-mint-500: #10b981;
+  --color-mint-600: #059669;
+
+  /* Canvas neutrals */
+  --color-canvas: #f7f7f6;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-neutral-200);
+  }
+
+  html {
+    @apply antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    @apply text-neutral-900 font-sans min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  ::selection {
+    background-color: var(--color-flow-100);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-neutral-200/80 bg-white;
+    box-shadow:
+      0 1px 2px rgba(17, 17, 17, 0.04),
+      0 1px 3px rgba(17, 17, 17, 0.02);
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 hover:border-neutral-300/80;
+    &:hover {
+      box-shadow:
+        0 4px 12px rgba(17, 17, 17, 0.06),
+        0 2px 4px rgba(17, 17, 17, 0.03);
+    }
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-flow-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-flow-700 disabled:opacity-40 disabled:hover:bg-flow-600;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50;
+  }
+
+  .btn-subtle {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-flow-400 focus:ring-4 focus:ring-flow-100;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium;
+  }
+}
+
+@layer utilities {
+  .animate-pulse-ring {
+    animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-rise {
+    animation: rise 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .animate-fade {
+    animation: fade 0.25s ease-out both;
+  }
+
+  .shimmer {
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 107, 246, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(79, 107, 246, 0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
