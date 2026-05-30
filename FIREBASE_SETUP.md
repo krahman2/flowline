@@ -107,7 +107,7 @@ Firebase Console → **Authentication** → **Settings** → **Authorized domain
 Add:
 
 - `localhost` (usually already there)
-- Your Vercel domain, e.g. `flowline.vercel.app`
+- `flowline-alpha.vercel.app` (or your Vercel URL)
 - Custom domain if you add one later
 
 ---

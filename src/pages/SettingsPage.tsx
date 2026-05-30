@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
-import { Bell, Download, FlaskConical, Palette, RotateCcw, Timer, Upload, Zap } from 'lucide-react';
+import { Bell, Cloud, Download, FlaskConical, Palette, RotateCcw, Timer, Upload, Zap } from 'lucide-react';
 import { useApp } from '../store/AppContext';
+import { useAuth } from '../store/AuthContext';
+import { AuthButton } from '../components/auth/AuthButton';
 import { ACCENTS } from '../store/accents';
 import { Page, PageHeader } from '../components/ui/PageHeader';
 import type { AccentKey, AppState } from '../types';
@@ -18,6 +20,7 @@ export function SettingsPage() {
     exportData,
     importData,
   } = useApp();
+  const { user, isConfigured, syncStatus } = useAuth();
   const [confirmReset, setConfirmReset] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -50,6 +53,29 @@ export function SettingsPage() {
       <PageHeader title="Settings" subtitle="Tune Flowline to fit how you work" />
 
       <div className="space-y-5">
+        <Section
+          icon={Cloud}
+          title="Account & sync"
+          desc="Sign in with Google to save flows across devices. Local progress merges when you first sign in."
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <AuthButton />
+            {isConfigured && user && (
+              <p className="text-xs text-neutral-500">
+                Signed in as {user.email}
+                {syncStatus === 'synced' && ' · Saved to cloud'}
+                {syncStatus === 'syncing' && ' · Saving…'}
+                {syncStatus === 'error' && ' · Sync error — try refreshing'}
+              </p>
+            )}
+            {!isConfigured && (
+              <p className="text-xs text-amber-600">
+                Cloud sync is off — add Firebase env vars and redeploy.
+              </p>
+            )}
+          </div>
+        </Section>
+
         {/* Accent */}
         <Section icon={Palette} title="Accent color" desc="Pick the highlight color used across your flows">
           <div className="flex flex-wrap gap-2.5">

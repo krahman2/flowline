@@ -41,7 +41,23 @@ export function AuthButton() {
     return () => window.removeEventListener('mousedown', onClick);
   }, [menuOpen]);
 
-  if (!isConfigured) return null;
+  if (!isConfigured) {
+    return (
+      <button
+        type="button"
+        onClick={() =>
+          alert(
+            'Sign-in is not active yet. Add all VITE_FIREBASE_* environment variables, then restart the dev server (local) or redeploy on Vercel.',
+          )
+        }
+        className="inline-flex items-center gap-2 rounded-xl border border-dashed border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-500"
+        title="Firebase env vars missing — add VITE_FIREBASE_* and redeploy"
+      >
+        <GoogleMark />
+        <span className="hidden sm:inline">Sign in</span>
+      </button>
+    );
+  }
 
   const handleSignIn = async () => {
     setBusy(true);
