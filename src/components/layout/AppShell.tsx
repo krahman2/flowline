@@ -16,7 +16,7 @@ export function AppShell() {
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBar />
-        <main className="flex-1 pb-20 lg:pb-0">
+        <main className="flex-1 pb-nav-safe lg:pb-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={routeKey}

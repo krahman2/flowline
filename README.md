@@ -25,14 +25,22 @@ Sign in with Google (top right) to save progress across devices. Local data merg
 
 See **[FIREBASE_SETUP.md](./FIREBASE_SETUP.md)** for Firebase, Firestore rules, and Vercel env vars.
 
+### Install on Android (PWA)
+
+1. Open **https://flowline-alpha.vercel.app** in Chrome
+2. Menu (⋮) → **Install app** or **Add to Home screen**
+3. The app opens full-screen like a native app, with bottom navigation and cloud sync
+
+On iPhone: Safari → Share → **Add to Home Screen**.
+
 ## Tech stack
 
 - React 19 + TypeScript
 - Vite
 - Tailwind CSS v4
 - React Router
-- React Router
 - localStorage + Firebase (Auth + Firestore sync)
+- PWA manifest (installable on phone home screen)
 
 ## Project structure
 

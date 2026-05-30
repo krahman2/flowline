@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppProvider } from './store/AppContext';
 import { AuthProvider } from './store/AuthContext';
+import { useStandalone } from './hooks/useStandalone';
 import { UIProvider } from './store/UIContext';
 import { ThemeApplier } from './components/ThemeApplier';
 import { AppShell } from './components/layout/AppShell';
@@ -14,6 +15,8 @@ import { GlobalGoalsPage } from './pages/GlobalGoalsPage';
 import { SettingsPage } from './pages/SettingsPage';
 
 export default function App() {
+  useStandalone();
+
   return (
     <AuthProvider>
       <AppProvider>

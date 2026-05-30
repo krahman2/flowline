@@ -16,6 +16,8 @@ import { AddBufferModal } from '../modals/AddBufferModal';
 import { CompletionSummary } from './CompletionSummary';
 import { ProjectMark } from '../illustrations/ProjectMark';
 import { CompletionIllustration } from '../illustrations/CompletionIllustration';
+import { useWakeLock } from '../../hooks/useWakeLock';
+import { vibrateOnTimerComplete } from '../../utils/mobileFeedback';
 import type { FocusTimerControls } from './FocusTimer';
 
 type Props = {
@@ -51,6 +53,8 @@ export function FocusTimelineMode({ project, onClose }: Props) {
 
   const currentNodeRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<number | null>(null);
+
+  useWakeLock(isRunning);
 
   // Reset timer when the active item changes
   useEffect(() => {
@@ -98,13 +102,14 @@ export function FocusTimelineMode({ project, onClose }: Props) {
   useEffect(() => {
     if (isRunning && secondsLeft === 0) {
       setIsRunning(false);
+      vibrateOnTimerComplete(preferences.soundEnabled);
       if (preferences.autoAdvance) {
         finish();
       } else {
         setTimeUp(true);
       }
     }
-  }, [isRunning, secondsLeft, finish, preferences.autoAdvance]);
+  }, [isRunning, secondsLeft, finish, preferences.autoAdvance, preferences.soundEnabled]);
 
   const handleSkip = useCallback(() => {
     if (!current) return;
@@ -168,9 +173,9 @@ export function FocusTimelineMode({ project, onClose }: Props) {
   const progress = getProjectProgress(project.items);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-canvas animate-fade">
+    <div className="fixed inset-0 z-50 flex flex-col overscroll-y-contain bg-canvas animate-fade">
       {/* Header */}
-      <header className="sticky top-0 z-10 border-b border-neutral-200/70 bg-canvas/85 backdrop-blur-md">
+      <header className="sticky top-0 z-10 border-b border-neutral-200/70 bg-canvas/85 pt-[env(safe-area-inset-top,0px)] backdrop-blur-md">
         <div className="mx-auto flex max-w-2xl items-center gap-3 px-4 py-3 sm:px-6">
           <ProjectMark mark={project.icon} color={project.color ?? 'var(--color-flow-500)'} size={28} className="rounded-lg" />
           <div className="min-w-0">
@@ -220,7 +225,7 @@ export function FocusTimelineMode({ project, onClose }: Props) {
 
       {/* XP toast */}
       {xpToast !== null && (
-        <div className="pointer-events-none fixed bottom-6 left-1/2 z-20 -translate-x-1/2 animate-rise">
+        <div className="pointer-events-none fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] left-1/2 z-20 -translate-x-1/2 animate-rise">
           <div className="flex items-center gap-2 rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white shadow-lg">
             <Zap className="h-4 w-4 text-amber-400" />
             +{xpToast} XP · {formatDuration(elapsed / 60)} focused

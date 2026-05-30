@@ -132,7 +132,7 @@ export function ProjectDetailPage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-6">
       {/* Sticky compact header */}
-      <div className="sticky top-14 z-20 -mx-4 mb-6 border-b border-neutral-200/70 bg-canvas/85 px-4 pb-3 pt-1 backdrop-blur-md sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div className="top-header-safe sticky z-20 -mx-4 mb-6 border-b border-neutral-200/70 bg-canvas/85 px-4 pb-3 pt-1 backdrop-blur-md sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <Link
           to="/projects"
           className="inline-flex items-center gap-1.5 py-1.5 text-xs text-neutral-400 transition hover:text-neutral-600"
@@ -243,7 +243,7 @@ export function ProjectDetailPage() {
         </main>
 
         <aside className="hidden xl:block">
-          <div className="sticky top-52">
+          <div className="top-header-safe sticky" style={{ top: 'calc(8.5rem + env(safe-area-inset-top, 0px))' }}>
             <ProjectInspector project={project} onStartFlow={openFocus} onAddBlock={() => openAdd()} />
           </div>
         </aside>
@@ -277,6 +277,17 @@ export function ProjectDetailPage() {
       {editProjectOpen && (
         <AddProjectModal project={project} onClose={() => setEditProjectOpen(false)} />
       )}
+
+      {/* Mobile: quick add — desktop uses sidebar / header button */}
+      <button
+        type="button"
+        onClick={() => openAdd()}
+        aria-label="Add block"
+        className="fixed right-4 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-flow-600 text-white shadow-lg transition active:scale-95 lg:hidden"
+        style={{ bottom: 'calc(4.75rem + env(safe-area-inset-bottom, 0px))' }}
+      >
+        <Plus className="h-6 w-6" />
+      </button>
     </div>
   );
 }

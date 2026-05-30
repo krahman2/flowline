@@ -31,8 +31,9 @@ export function Modal({ title, subtitle, onClose, children, footer, maxWidth = '
       transition={{ duration: 0.18 }}
     >
       <motion.div
-        className={`w-full ${maxWidth} rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl`}
+        className={`w-full ${maxWidth} max-h-[92dvh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl sm:max-h-[90vh] sm:rounded-3xl`}
         onMouseDown={(e) => e.stopPropagation()}
+        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         initial={{ opacity: 0, y: 24, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ type: 'spring', stiffness: 260, damping: 26 }}

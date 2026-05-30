@@ -15,7 +15,8 @@ type Props<T extends string> = {
 
 export function SegmentedTabs<T extends string>({ segments, value, onChange, size = 'md' }: Props<T>) {
   return (
-    <div className="inline-flex items-center gap-0.5 rounded-xl bg-neutral-100 p-1">
+    <div className="-mx-1 overflow-x-auto no-scrollbar">
+      <div className="inline-flex min-w-full items-center gap-0.5 rounded-xl bg-neutral-100 p-1 sm:min-w-0">
       {segments.map((seg) => {
         const Icon = seg.icon;
         const active = seg.id === value;
@@ -23,8 +24,8 @@ export function SegmentedTabs<T extends string>({ segments, value, onChange, siz
           <button
             key={seg.id}
             onClick={() => onChange(seg.id)}
-            className={`inline-flex items-center gap-1.5 rounded-lg font-medium transition-all ${
-              size === 'sm' ? 'px-2.5 py-1 text-xs' : 'px-3.5 py-1.5 text-sm'
+            className={`inline-flex shrink-0 items-center gap-1.5 rounded-lg font-medium transition-all touch-manipulation ${
+              size === 'sm' ? 'px-2.5 py-2 text-xs' : 'px-3.5 py-2 text-sm'
             } ${
               active
                 ? 'bg-white text-neutral-900 shadow-sm'
@@ -36,6 +37,7 @@ export function SegmentedTabs<T extends string>({ segments, value, onChange, siz
           </button>
         );
       })}
+      </div>
     </div>
   );
 }

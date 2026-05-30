@@ -3,7 +3,7 @@ import { mobileNav } from './navItems';
 
 export function BottomNav() {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 flex border-t border-neutral-200/70 bg-white/90 backdrop-blur-md lg:hidden">
+    <nav className="bottom-nav-safe fixed inset-x-0 bottom-0 z-30 flex border-t border-neutral-200/70 bg-white/95 backdrop-blur-md lg:hidden">
       {mobileNav.map((item) => {
         const Icon = item.icon;
         return (
@@ -12,7 +12,7 @@ export function BottomNav() {
             to={item.to}
             end={item.end}
             className={({ isActive }) =>
-              `flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium transition-colors ${
+              `flex min-h-[3.25rem] flex-1 flex-col items-center justify-center gap-0.5 py-1.5 text-[11px] font-medium transition-colors touch-manipulation ${
                 isActive ? 'text-flow-600' : 'text-neutral-400'
               }`
             }

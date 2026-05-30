@@ -20,7 +20,7 @@ export function TopBar() {
   const title = TITLES[pathname] ?? (pathname.startsWith('/projects/') ? 'Flow' : 'Flowline');
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-neutral-200/70 bg-canvas/80 px-4 backdrop-blur-md sm:px-6">
+    <header className="sticky top-0 z-30 flex min-h-14 shrink-0 items-center gap-3 border-b border-neutral-200/70 bg-canvas/80 px-4 pt-[env(safe-area-inset-top,0px)] backdrop-blur-md sm:px-6">
       <div className="flex items-center gap-2 lg:hidden">
         <FlowlineMark className="h-7 w-7" />
         <span className="text-[15px] font-semibold tracking-tight">Flowline</span>

@@ -33,5 +33,5 @@ export const mobileNav: NavItem[] = [
   { to: '/', label: 'Home', icon: LayoutDashboard, end: true },
   { to: '/today', label: 'Today', icon: Sun },
   { to: '/projects', label: 'Flows', icon: FolderKanban },
-  { to: '/goals', label: 'Goals', icon: Target },
+  { to: '/settings', label: 'Settings', icon: Settings },
 ];
